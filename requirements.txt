@@ -1,4 +1,4 @@
 pandas==2.3.3
 streamlit==1.50.0
 streamlit_option_menu==0.4.0
-scikit-learn==1.51.0
+scikit-learn==1.6.1
