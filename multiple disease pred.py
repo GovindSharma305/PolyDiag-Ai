@@ -230,7 +230,7 @@ DEFAULT_PARK = {
 # Helper: Load Models (cached + safe + portable)
 # --------------------------------------------------
 # Use pathlib for portable model path resolution
-BASE_DIR = Path("C:/Users/sagar/Desktop/multiple disease prediction system/saved_models").parent if "__file__" in locals() else Path.cwd()
+BASE_DIR = Path(__file__).resolve().parent if "__file__" in globals() else Path.cwd()
 MODELS_DIR = BASE_DIR / "saved_models"
 
 @st.cache_resource
@@ -480,7 +480,7 @@ if selected == "Diabetes Prediction":
             min_value=0.0,
             step=0.01,
             key="diab_dpf",
-            format="%.3f" # Added better float format
+            format="%.3f"  # Added better float format
         )
         st.markdown(
             '<div class="helper-text">Higher = stronger family history</div>',
@@ -1038,7 +1038,7 @@ if selected == "Batch Prediction (CSV)":
                     preds = model.predict(df.values)
                     df[result_col] = preds
                     st.success(f"Batch prediction completed for {len(df)} records.")
-                    st.dataframe(df.head(10)) # Showing fewer rows for better UI fit
+                    st.dataframe(df.head(10))  # Showing fewer rows for better UI fit
 
                     # Create a buffer and download
                     csv_buffer = df.to_csv(index=False)
@@ -1049,7 +1049,7 @@ if selected == "Batch Prediction (CSV)":
                         mime="text/csv",
                     )
                 except ValueError as e:
-                     st.error(
+                    st.error(
                         f"Error during prediction (Value Error). Make sure the CSV has the **correct number of columns** "
                         f"({model.n_features_in_} expected for this model) and all are numeric. Error: {e}"
                     )
@@ -1093,5 +1093,4 @@ if selected == "About Project":
         "For real decisions, rely on doctors and verified medical tools."
     )
 
-    # FIX: Corrected the typo from st.markmarkdown to st.markdown
     st.markdown("</div>", unsafe_allow_html=True)
